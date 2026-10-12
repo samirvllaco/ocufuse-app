@@ -1,0 +1,2 @@
+/reset-password /index.html 200
+/reset-password/* /index.html 200
