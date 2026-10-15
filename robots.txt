@@ -1,0 +1,6 @@
+# app.ocufuse.com: the sign-in page on "/" may be indexed (its <meta name="robots"> says index, follow). Everything
+# after sign-in is private and lives on that same page (#routes); /login, /signup and the 404 page say noindex and
+# point to "/". Password reset links are private, one-time addresses.
+User-agent: *
+Allow: /
+Disallow: /reset-password
