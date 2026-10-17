@@ -1,7 +1,7 @@
 {
   "name": "Ocufuse",
   "short_name": "Ocufuse",
-  "description": "Log symptoms, take daily eye photos and practise, on the web.",
+  "description": "Log symptoms, take daily eye photos and play short eye games, on the web.",
   "id": "/",
   "start_url": "/",
   "scope": "/",
