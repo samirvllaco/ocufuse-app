@@ -17,6 +17,7 @@ self.addEventListener("push", (e) => {
   try { d = e.data ? e.data.json() : {}; } catch { d = {}; }
   const title = d.title || "Ocufuse";
   e.waitUntil(self.registration.showNotification(title, {
-    body: d.body || "", icon: "/logo-192.png", badge: "/favicon-64.png", tag: d.tag || "ocufuse", data: { url: d.url || "/" },
+    // renotify: a reminder that replaces one still in the notification centre is announced again, not swapped silently.
+    body: d.body || "", icon: "/logo-192.png", badge: "/favicon-64.png", tag: d.tag || "ocufuse", renotify: true, data: { url: d.url || "/" },
   }));
 });

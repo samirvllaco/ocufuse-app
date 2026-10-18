@@ -1,6 +1,7 @@
-# app.ocufuse.com: the sign-in page on "/" may be indexed (its <meta name="robots"> says index, follow). Everything
-# after sign-in is private and lives on that same page (#routes); /login, /signup and the 404 page say noindex and
-# point to "/". Password reset links are private, one-time addresses.
+# app.ocufuse.com: no page of the web app is indexed; ocufuse.com owns search. Every page says noindex (its
+# <meta name="robots"> and the X-Robots-Tag header), so crawling stays allowed: a crawler has to read a page to see
+# its noindex. Everything after sign-in is private and lives on the same page (#routes). Password reset links are
+# private, one-time addresses.
 User-agent: *
 Allow: /
 Disallow: /reset-password
