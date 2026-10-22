@@ -4,6 +4,20 @@ self.addEventListener("install", () => self.skipWaiting());
 self.addEventListener("activate", (e) => e.waitUntil(self.clients.claim()));
 self.addEventListener("notificationclick", (e) => {
   e.notification.close();
+  // The focus timer's heads-up buttons (src/today/focusTimer.js): passed to an open app, which acts on these two only.
+  // With no app open, the click opens it like any other.
+  if (e.action === "break-now" || e.action === "snooze-5") {
+    const action = e.action;
+    e.waitUntil(self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((list) => {
+      const open = list.filter((c) => c.url.startsWith(self.location.origin));
+      if (!open.length) return self.clients.openWindow("/#focus");
+      // One tab only: the timer is shared through storage, so a second tab acting would snooze twice.
+      const c = open.find((x) => x.focused) || open.find((x) => x.visibilityState === "visible") || open[0];
+      c.postMessage({ type: "ocu-focus", action });
+      if (action === "break-now") return c.focus();
+    }));
+    return;
+  }
   // from=notif lets the app count that a reminder was opened (core/telemetry.js); only that fixed word is added.
   const u = new URL(e.notification.data?.url || "/", self.location.origin);
   u.searchParams.set("from", "notif");
